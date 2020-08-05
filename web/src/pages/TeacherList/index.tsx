@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import "./styles.css";
 
 import PageHeader from "../../components/PageHeader/";
@@ -11,13 +11,20 @@ export default function TeacherList() {
   const [week_day, setWeekDay] = useState('');
   const [time, setTime] = useState('');
 
+  function searchTeachers(e: FormEvent) {
+    e.preventDefault();
+    console.log('AAAAAAAAAA');
+  }
+
   return (
     <div className="container" id="page-teacher-list">
       <PageHeader title="Esses são os Proffys disponíveis.">
-        <form id="search-teachers">
+        <form id="search-teachers" onSubmit={searchTeachers}>
           <Select
             name="subject"
             label="Matéria"
+            value={subject}
+            onChange={ (e) => { setSubject(e.target.value) } }
             options={[
               { value: "Artes", label: "Artes" },
               { value: "Biologia", label: "Biologia" },
@@ -33,6 +40,8 @@ export default function TeacherList() {
           <Select
             name="week_day"
             label="Dia da Semana"
+            value={week_day}
+            onChange={ (e) => { setWeekDay(e.target.value) } }
             options={[
               { value: "0", label: "Domingo" },
               { value: "1", label: "Segunda" },
@@ -44,7 +53,17 @@ export default function TeacherList() {
             ]}
           />
 
-          <Input name="time" label="Hora" type="time" onChange={(e) => {  }} />
+          <Input 
+            name="time" 
+            label="Hora" 
+            type="time" 
+            value={time}
+            onChange={ (e) => { setTime(e.target.value) } } 
+          />
+
+          <button type="submit">
+            Buscar
+          </button>
         </form>
       </PageHeader>
 
